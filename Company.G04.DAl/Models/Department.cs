@@ -7,7 +7,7 @@ using Microsoft.VisualBasic;
 
 namespace Company.G04.DAl.Models
 {
-    internal class Department
+    public class Department
     {
         public int Id { get; set; }
 
