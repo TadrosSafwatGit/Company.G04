@@ -1,3 +1,8 @@
+using Company.G04.BLL.Interfaces;
+using Company.G04.BLL.Repositories;
+using Company.G04.DAl.Data.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace MVC._3.PL
 {
     public class Program
@@ -7,7 +12,17 @@ namespace MVC._3.PL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews();// regeseter bulit in   MVC Service 
+            builder.Services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();// allow dependances ingections for DepartmentReposatres
+            builder.Services.AddDbContext<CompanyDbContext>(options => 
+            {
+
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefualtConnection"));
+            
+            }
+            );//  allow dependances ingections for CompanyDbContext
+
+
 
             var app = builder.Build();
 
