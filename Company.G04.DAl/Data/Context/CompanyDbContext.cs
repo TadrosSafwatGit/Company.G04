@@ -9,9 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Company.G04.DAl.Data.Context
 {
+    //CLR 
     public class CompanyDbContext :DbContext 
     {
-        public CompanyDbContext() : base()
+        public CompanyDbContext(DbContextOptions<CompanyDbContext>options) : base(options)
         {
             
         }
@@ -23,10 +24,10 @@ namespace Company.G04.DAl.Data.Context
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("server= .;Database=CompanyG04;Trusted_Connection=True;TrustServerCertifcate=True");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("server= .;Database=CompanyG04;Trusted_Connection=True;TrustServerCertifcate=True");
+        //}
 
         public DbSet<Department> departments { get; set; }
     }
