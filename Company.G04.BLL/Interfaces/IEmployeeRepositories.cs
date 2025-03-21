@@ -7,14 +7,17 @@ using Company.G04.DAl.Models;
 
 namespace Company.G04.BLL.Interfaces
 {
-    public interface IEmployeeRepositories
+    public interface IEmployeeRepositories :IGenericRepository<Employee>
     {
-        IEnumerable<Employee> GetAll();
-        Employee? Get(int id);
+        //IEnumerable<Employee> GetAll();
+        //Employee? Get(int id);
 
-        int Add(Employee model);
-        int Update(Employee model);
-        int Delete(Employee model);
+        //int Add(Employee model);
+        //int Update(Employee model);
+        //int Delete(Employee model);
+
+
+        //Employee? GetByName(string name);
 
 
     }
