@@ -19,6 +19,6 @@ namespace Company.G04.BLL.Repositories
         }
 
         // vid num 9
-
+       
     }
 }
