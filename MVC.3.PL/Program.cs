@@ -14,6 +14,7 @@ namespace MVC._3.PL
             // Add services to the container.
             builder.Services.AddControllersWithViews();// regeseter bulit in   MVC Service 
             builder.Services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();// allow dependances ingections for DepartmentReposatres
+            builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
             builder.Services.AddDbContext<CompanyDbContext>(options => 
             {
 
