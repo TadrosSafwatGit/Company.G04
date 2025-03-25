@@ -12,6 +12,8 @@ namespace Company.G04.DAl.Data.Context
     //CLR 
     public class CompanyDbContext :DbContext 
     {
+        public object employees;
+
         public CompanyDbContext(DbContextOptions<CompanyDbContext>options) : base(options)
         {
             
@@ -30,6 +32,11 @@ namespace Company.G04.DAl.Data.Context
         //}
 
         public DbSet<Department> departments { get; set; }
-        public DbSet<Employee> employees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
+
+
+
+
     }
 }
