@@ -26,8 +26,8 @@ namespace Company.G04.DAl.Models
 
         public DateTime CreateAt { get; set; }
 
-
-
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
 
 
 

@@ -1,42 +1,93 @@
-﻿@model CreateDepartmentDto
+﻿@model CreateEmployeeDto
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Employee";
 }
 
-<h1>Create Department  </h1>
 
-<br />
-<br />
-
-<form asp-action="Create">
-
-    <div class="my-3">
-
-        <label asp-for="Code" class="col-form-label" ></label>
-        <input asp-for="Code" class="form-control"></input>
-        <span asp-validation-for="Code" class="text-danger"></span>
-    </div>
-    <div class="my-3">
-
-        <label asp-for="Name" class="col-form-label"></label>
-        <input asp-for="Name" class="form-control"></input>
-        <span asp-validation-for="Name" class="text-danger"></span>
-
-    </div>
-    <div class="my-3">
-
-        <label asp-for="CreateAt" class="col-form-label"></label>
-        <input asp-for="CreateAt" class="form-control"></input>
-        <span asp-validation-for="CreateAt" class="text-danger"></span>
-
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-primary">👨‍💼 Create Employee</h1>
+        <a asp-action="Index" class="btn btn-light">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
     </div>
 
-    <div class="my-3">
+    <hr />
 
-        <input type="submit" value="Create" class="btn btn-primary"></input>
-        <a asp-action="Index" class="btn btn-light"  >Back to List </a>
+    <div class="card shadow-lg p-4">
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-bold">📛 Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
+            <div class="mb-3">
+                <label asp-for="Age" class="form-label fw-bold">🎂 Age</label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label fw-bold">📧 Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label fw-bold">🏠 Address</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Phone" class="form-label fw-bold">📞 Phone</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Salary" class="form-label fw-bold">💰 Salary ($)</label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label fw-bold">✅ Active</label>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input asp-for="IsDeleted" class="form-check-input" />
+                <label asp-for="IsDeleted" class="form-check-label fw-bold">🗑️ Deleted</label>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="HiringDate" class="form-label fw-bold">📅 Hiring Date</label>
+                <input asp-for="HiringDate" class="form-control" type="date" />
+                <span asp-validation-for="HiringDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CreateAt" class="form-label fw-bold">📅 Created At</label>
+                <input asp-for="CreateAt" class="form-control" type="date" />
+                <span asp-validation-for="CreateAt" class="text-danger"></span>
+            </div>
+       
+
+
+            <div class="mt-3 text-center">
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="fas fa-save"></i> Create Employee
+                </button>
+                <a asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="fas fa-ban"></i> Cancel
+                </a>
+            </div>
+        </form>
     </div>
+</div>
 
-</form>
-
+<!-- FontAwesome Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

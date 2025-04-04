@@ -16,5 +16,10 @@ namespace Company.G04.DAl.Models
 
         public DateTime CreateAt { get; set; }
 
+
+
+        public List<Employee> Employees { get; set; }
+
+
     }
 }

@@ -1,29 +1,62 @@
-﻿@model Department
+﻿@model Employee
 
 @{
-    ViewData["Title"] = "Department Details";
+    ViewData["Title"] = "Employee Details";
 }
 
 <div class="container mt-4">
-    <h1 class="text-primary text-center">📄 Department Details</h1>
+    <h1 class="text-primary text-center">📄 Employee Details</h1>
     <hr />
 
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="p-4 border rounded bg-light shadow">
                 <div class="mb-3">
-                    <label asp-for="Code" class="form-label fw-bold"></label>
-                    <input readonly asp-for="Code" class="form-control bg-white" />
-                </div>
-
-                <div class="mb-3">
                     <label asp-for="Name" class="form-label fw-bold"></label>
                     <input readonly asp-for="Name" class="form-control bg-white" />
                 </div>
 
                 <div class="mb-3">
+                    <label asp-for="Age" class="form-label fw-bold"></label>
+                    <input readonly asp-for="Age" class="form-control bg-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label fw-bold"></label>
+                    <input readonly asp-for="Email" class="form-control bg-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label fw-bold"></label>
+                    <input readonly asp-for="Phone" class="form-control bg-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Salary" class="form-label fw-bold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input readonly asp-for="Salary" class="form-control bg-white" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="HiringDate" class="form-label fw-bold"></label>
+                    <input readonly asp-for="HiringDate" type="date" class="form-control bg-white" />
+                </div>
+
+                <div class="mb-3">
                     <label asp-for="CreateAt" class="form-label fw-bold"></label>
                     <input readonly asp-for="CreateAt" type="date" class="form-control bg-white" />
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input readonly asp-for="IsActive" class="form-check-input" type="checkbox" disabled />
+                    <label asp-for="IsActive" class="form-check-label fw-bold"></label>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input readonly asp-for="IsDeleted" class="form-check-input" type="checkbox" disabled />
+                    <label asp-for="IsDeleted" class="form-check-label fw-bold"></label>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
