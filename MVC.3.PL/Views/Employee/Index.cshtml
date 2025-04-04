@@ -2,73 +2,108 @@
 @model IEnumerable<Employee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Employees";
+    // ViewData["Message"];
 }
 
-<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Create Employee</a>
-<br />
-<br />
+@* <div class="m-3 alert alert-danger">  *@
 
-@if (Model.Count() > 0)
+@*     <p>@ViewData["Message"]</p> *@
+
+@* </div> *@
+
+
+@* <div class="m-3 alert alert-danger"> *@
+
+@*     <p>@ViewBag.Message</p> *@
+
+@* </div> *@
+
+@if (!string.IsNullOrEmpty(TempData["Message"]as string))
 {
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Salary</th>
-                <th>IsActive</th>
-                <th>IsDeleted</th>
-                <th>@Html.DisplayNameFor(D => D.HiringDate)</th>
-                <th>@Html.DisplayNameFor(D => D.CreateAt)</th>
-                <th>Details</th>
-                <th>Update</th>
-                <th>Delete</th>
-                
-                
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var employee in Model)
-            {
-                <tr>
-                    <td>@employee.Name</td>
-                    <td>@employee.Age</td>
-                    <td>@employee.Email</td>
-                    <td>@employee.Phone</td>
-                    <td>@employee.Salary</td>
-                    <td>@employee.IsActive</td>
-                    <td>@employee.IsDeleted</td>
-                    <td>@employee.HiringDate</td>
-                    <td>@employee.CreateAt</td>
 
+    <div class="m-3 alert alert-info">
+        <p>@TempData["Message"] </p>
 
-                    <td>
-                        <a asp-controller="employee" asp-action="Details" asp-route-id="@employee.Id" class="btn btn-warning">
-                            <i class="fas fa-eye"></i> Details
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-success">
-                            <i class="fas fa-edit"></i> Update
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Delete
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-}
-else
-{
-    <div class="mt-4 alert alert-warning">
-        <h4>There is No Employees :(</h4>
     </div>
+
 }
+
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-primary">👨‍💼 All Employees</h1>
+        <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create Employee
+        </a>
+    </div>
+
+    <hr />
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>📛 Name</th>
+                        <th>🎂 Age</th>
+                        <th>📧 Email</th>
+                        <th>📞 Phone</th>
+                        <th>💰 Salary</th>
+                        <th>✅ Active</th>
+                        <th>🗑️ Deleted</th>
+                        <th>📅 Hiring Date</th>
+                        <th>📅 Created At</th>
+                        <th>🔍 Details</th>
+                        <th>✏️ Update</th>
+                        <th>🗑️ Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            <td><strong>@employee.Name</strong></td>
+                            <td>@employee.Age</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.Phone</td>
+                            <td><strong>$@employee.Salary.ToString("N2")</strong></td> <!-- Dollar sign added here -->
+                            <td>@(employee.IsActive ? "✅ Yes" : "❌ No")</td>
+                            <td>@(employee.IsDeleted ? "🗑️ Yes" : "✔️ No")</td>
+                            <td>@employee.HiringDate.ToString("yyyy-MM-dd")</td>
+                            <td>@employee.CreateAt.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@employee.Id" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-success btn-sm">
+                                    <i class="fas fa-edit"></i> Update
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="Delete" asp-route-id="@employee.Id"
+                                   class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?');">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="mt-4 alert alert-info text-center">
+            <h4>🚀 No Employees Available</h4>
+            <p>Add new employees to see them here.</p>
+        </div>
+    }
+</div>
+
+<!-- FontAwesome Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

@@ -8,10 +8,12 @@ namespace MVC._3.PL.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepositories _employeeRepository;
+        private readonly IDepartmentRepositories _departmentRepository;
 
-        public EmployeeController(IEmployeeRepositories employeeRepository)
+        public EmployeeController(IEmployeeRepositories employeeRepository,IDepartmentRepositories departmentRepository)
         {
             _employeeRepository = employeeRepository;
+          _departmentRepository = departmentRepository;
         }
 
         [HttpGet]
@@ -19,7 +21,17 @@ namespace MVC._3.PL.Controllers
         public IActionResult Index()
         {
             var employee = _employeeRepository.GetAll();
+            // diCTINARY 3 proprety
+            // Viewdata trancfer excetra information from controler to view
+            //ViewData["Message"] = "hello from ViewData";
 
+
+
+            // ViewBag   trancfer excetra information from controler to view
+
+            //ViewBag.Message = "Hello from ViewBag";
+
+            // TempData
 
 
             return View(employee);
@@ -31,7 +43,8 @@ namespace MVC._3.PL.Controllers
         public IActionResult Create()
         {
 
-
+           var departments=  _departmentRepository.GetAll();
+            ViewData["departments"] = departments;
 
             return View();
 
@@ -62,6 +75,8 @@ namespace MVC._3.PL.Controllers
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
+
+                    TempData  ["Message"] = "Employee created ";
                     return RedirectToAction(nameof(Index));
 
                 }
