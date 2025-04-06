@@ -36,7 +36,7 @@ namespace MVC._3.PL.Dtos
         [DisplayName("Date of Creation")]
         public DateTime CreateAt { get; set; }
 
-
+        public int? DepartmentId { get; set; }
 
     }
 }

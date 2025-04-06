@@ -18,5 +18,10 @@ namespace MVC._3.PL.Dtos
         [Required(ErrorMessage = "CreateAt is Required !")]
 
         public DateTime CreateAt { get; set; }
+
+      
+
+
+
     }
 }
