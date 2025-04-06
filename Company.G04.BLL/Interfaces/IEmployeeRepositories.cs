@@ -7,7 +7,7 @@ using Company.G04.DAl.Models;
 
 namespace Company.G04.BLL.Interfaces
 {
-    public interface IEmployeeRepositories :IGenericRepository<Employee>
+    public interface IEmployeeRepositories : IGenericRepository<Employee>
     {
         //IEnumerable<Employee> GetAll();
         //Employee? Get(int id);
@@ -17,8 +17,7 @@ namespace Company.G04.BLL.Interfaces
         //int Delete(Employee model);
 
 
-        //Employee? GetByName(string name);
-
-
+       List <Employee> GetByName(string name);
+        int Delete(object model);
     }
 }

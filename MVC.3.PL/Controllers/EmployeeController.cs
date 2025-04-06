@@ -18,9 +18,25 @@ namespace MVC._3.PL.Controllers
 
         [HttpGet]
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchIput)
         {
-            var employee = _employeeRepository.GetAll();
+
+            IEnumerable<Employee> employee;
+
+            if (string.IsNullOrEmpty(searchIput))
+            {
+                 employee = _employeeRepository.GetAll();
+
+            }
+            else 
+            {
+                 employee = _employeeRepository.GetByName(searchIput);
+
+
+
+
+            }
+
             // diCTINARY 3 proprety
             // Viewdata trancfer excetra information from controler to view
             //ViewData["Message"] = "hello from ViewData";
@@ -69,8 +85,11 @@ namespace MVC._3.PL.Controllers
                     CreateAt=model.CreateAt,
                     Email=model.Email,
                     HiringDate=model.HiringDate,
-                    Phone=model.Phone
-                   
+                    Phone=model.Phone,
+                    
+                 
+
+
                 };
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
