@@ -2,6 +2,7 @@ using Company.G04.BLL.Interfaces;
 using Company.G04.BLL.Repositories;
 using Company.G04.DAl.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using MVC._3.PL.Mapping;
 
 namespace MVC._3.PL
 {
@@ -23,7 +24,7 @@ namespace MVC._3.PL
             }
             );//  allow dependances ingections for CompanyDbContext
 
-
+            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
             var app = builder.Build();
 
