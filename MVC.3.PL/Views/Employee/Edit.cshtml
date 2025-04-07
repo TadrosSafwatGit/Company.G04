@@ -1,7 +1,9 @@
 ﻿@model Employee
+@inject IDepartmentRepositories _departmentRepository
 
 @{
     ViewData["Title"] = "Edit Employee";
+    var departments = new SelectList(_departmentRepository.GetAll(), "Id", "Name", Model.DepartmentId);
 }
 
 <div class="container mt-4">
@@ -11,7 +13,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="p-4 border rounded bg-light shadow">
-             
+
                 <input type="hidden" asp-for="Id" />
 
                 <div class="mb-3">
@@ -50,6 +52,14 @@
                     <span asp-validation-for="Salary" class="text-danger"></span>
                 </div>
 
+                <div class="mb-3">
+                    <label asp-for="DepartmentId" class="form-label fw-bold">🏢 Department</label>
+                    <select asp-for="DepartmentId" asp-items="departments" class="form-select">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+
                 <div class="mb-3 form-check">
                     <input asp-for="IsActive" class="form-check-input" />
                     <label asp-for="IsActive" class="form-check-label"></label>
@@ -84,6 +94,5 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
