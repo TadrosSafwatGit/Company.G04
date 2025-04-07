@@ -1,4 +1,5 @@
-﻿using Company.G04.BLL.Interfaces;
+﻿using AutoMapper;
+using Company.G04.BLL.Interfaces;
 using Company.G04.DAl.Models;
 using Microsoft.AspNetCore.Mvc;
 using MVC._3.PL.Dtos;
@@ -9,11 +10,16 @@ namespace MVC._3.PL.Controllers
     {
         private readonly IEmployeeRepositories _employeeRepository;
         private readonly IDepartmentRepositories _departmentRepository;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepositories employeeRepository,IDepartmentRepositories departmentRepository)
+        public EmployeeController(IEmployeeRepositories employeeRepository,
+            IDepartmentRepositories departmentRepository,
+            IMapper mapper
+            )
         {
             _employeeRepository = employeeRepository;
           _departmentRepository = departmentRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -73,24 +79,25 @@ namespace MVC._3.PL.Controllers
 
             if (ModelState.IsValid) 
             {
-
-                var employee = new Employee()
-                {
-                    Name=model.Name,
-                    Age=model.Age,
-                    Salary=model.Salary,
-                    Address=model.Address,
-                    IsActive=model.IsActive,
-                    IsDeleted=model.IsDeleted,
-                    CreateAt=model.CreateAt,
-                    Email=model.Email,
-                    HiringDate=model.HiringDate,
-                    Phone=model.Phone,
-                    
-                 
+                //Manual mapper
+                //var employee = new Employee()
+                //{
+                //    Name=model.Name,
+                //    Age=model.Age,
+                //    Salary=model.Salary,
+                //    Address=model.Address,
+                //    IsActive=model.IsActive,
+                //    IsDeleted=model.IsDeleted,
+                //    CreateAt=model.CreateAt,
+                //    Email=model.Email,
+                //    HiringDate=model.HiringDate,
+                //    Phone=model.Phone,
 
 
-                };
+
+
+                //};
+                var employee= _mapper.Map<Employee>(model);
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
@@ -160,7 +167,7 @@ namespace MVC._3.PL.Controllers
 
 
 
-
+        
         public IActionResult Delete(int? id)
         {
            

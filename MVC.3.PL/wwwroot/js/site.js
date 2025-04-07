@@ -4,24 +4,24 @@
 // Write your JavaScript code.
 
 let InputSearch = document.getElementById("searchIput");
-InputSearch.addEventListener("keyup", () => {
+////InputSearch.addEventListener("keyup", () => {
 
-    // Creating Our XMLHttpRequest object 
-    let xhr = new XMLHttpRequest();
+//    // Creating Our XMLHttpRequest object 
+//    let xhr = new XMLHttpRequest();
 
-    // Making our connection  
-    let url = `https://localhost:7091/Employee?searchIput=${InputSearch.value}`;
-    xhr.open("GET", url, true);
+//    // Making our connection  
+//    let url = `https://localhost:7091/Employee?searchIput=${InputSearch.value}`;
+//    xhr.open("GET", url, true);
 
-    // function execute after request is successful 
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-        }
-    }
-    // Sending our request 
-    xhr.send();
+//    // function execute after request is successful 
+//    xhr.onreadystatechange = function () {
+//        if (this.readyState == 4 && this.status == 200) {
+//            console.log(this.responseText);
+//        }
+//    }
+//    // Sending our request 
+//    xhr.send();
 
 
 
-});
+//});
