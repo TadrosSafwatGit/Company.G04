@@ -20,11 +20,7 @@ namespace Company.G04.BLL.Repositories
             _context = context;
         }
 
-        public int Delete(object model)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public List<Employee> GetByName(string name)
         {
             return _context.Employees.Include(E=>E.Department).Where(E => E.Name.ToLower().Contains(name.ToLower())).ToList();
