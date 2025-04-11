@@ -5,12 +5,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Company.G04.DAl.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.G04.DAl.Data.Context
 {
     //CLR 
-    public class CompanyDbContext :DbContext 
+    public class CompanyDbContext : IdentityDbContext<AppUser>
     {
         public object employees;
 
@@ -35,7 +37,9 @@ namespace Company.G04.DAl.Data.Context
         public DbSet<Employee> Employees { get; set; }
 
 
+        //public DbSet<IdentityUser> Users { get; set; }
 
+        //public DbSet<IdentityRole> MyProperty { get; set; }
 
 
     }

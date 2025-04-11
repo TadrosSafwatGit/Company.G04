@@ -2,6 +2,8 @@ using Company.G04.BLL;
 using Company.G04.BLL.Interfaces;
 using Company.G04.BLL.Repositories;
 using Company.G04.DAl.Data.Context;
+using Company.G04.DAl.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC._3.PL.Mapping;
 
@@ -17,6 +19,7 @@ namespace MVC._3.PL
             builder.Services.AddControllersWithViews();// regeseter bulit in   MVC Service 
             builder.Services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();// allow dependances ingections for DepartmentReposatres
             builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
+            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CompanyDbContext>();
 
             ////// unit OF work
 
@@ -33,7 +36,7 @@ namespace MVC._3.PL
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
-         
+        
 
 
             var app = builder.Build();
