@@ -1,3 +1,4 @@
+using Company.G04.BLL;
 using Company.G04.BLL.Interfaces;
 using Company.G04.BLL.Repositories;
 using Company.G04.DAl.Data.Context;
@@ -16,6 +17,12 @@ namespace MVC._3.PL
             builder.Services.AddControllersWithViews();// regeseter bulit in   MVC Service 
             builder.Services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();// allow dependances ingections for DepartmentReposatres
             builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
+
+            ////// unit OF work
+
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddDbContext<CompanyDbContext>(options => 
             {
 
@@ -25,6 +32,9 @@ namespace MVC._3.PL
             );//  allow dependances ingections for CompanyDbContext
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+
+         
+
 
             var app = builder.Build();
 

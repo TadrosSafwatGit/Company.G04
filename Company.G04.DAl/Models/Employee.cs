@@ -29,6 +29,8 @@ namespace Company.G04.DAl.Models
         public int? DepartmentId { get; set; }
         public Department? Department { get; set; }
 
+        public string? ImageName { get; set; }
+
 
 
     }

@@ -3,23 +3,29 @@ using Company.G04.BLL.Interfaces;
 using Company.G04.DAl.Models;
 using Microsoft.AspNetCore.Mvc;
 using MVC._3.PL.Dtos;
+using MVC._3.PL.Helpers;
 
 namespace MVC._3.PL.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeRepositories _employeeRepository;
-        private readonly IDepartmentRepositories _departmentRepository;
+        //private readonly IEmployeeRepositories _employeeRepository;
+        //private readonly IDepartmentRepositories _departmentRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeeController(IEmployeeRepositories employeeRepository,
-            IDepartmentRepositories departmentRepository,
+        public EmployeeController(
+            //IEmployeeRepositories employeeRepository,
+            //IDepartmentRepositories departmentRepository,
             IMapper mapper
+            ,
+            IUnitOfWork unitOfWork
             )
         {
-            _employeeRepository = employeeRepository;
-          _departmentRepository = departmentRepository;
+          //  _employeeRepository = employeeRepository;
+          //_departmentRepository = departmentRepository;
             _mapper = mapper;
+             _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -31,29 +37,19 @@ namespace MVC._3.PL.Controllers
 
             if (string.IsNullOrEmpty(searchIput))
             {
-                 employee = _employeeRepository.GetAll();
+                 employee = _unitOfWork.EmployeeRepository.GetAll();
 
             }
             else 
             {
-                 employee = _employeeRepository.GetByName(searchIput);
+                 employee = _unitOfWork.EmployeeRepository.GetByName(searchIput);
 
 
 
 
             }
 
-            // diCTINARY 3 proprety
-            // Viewdata trancfer excetra information from controler to view
-            //ViewData["Message"] = "hello from ViewData";
-
-
-
-            // ViewBag   trancfer excetra information from controler to view
-
-            //ViewBag.Message = "Hello from ViewBag";
-
-            // TempData
+         
 
 
             return View(employee);
@@ -65,7 +61,7 @@ namespace MVC._3.PL.Controllers
         public IActionResult Create()
         {
 
-           var departments=  _departmentRepository.GetAll();
+           var departments= _unitOfWork.DepartmentRepository.GetAll();
             ViewData["departments"] = departments;
 
             return View();
@@ -79,28 +75,21 @@ namespace MVC._3.PL.Controllers
 
             if (ModelState.IsValid) 
             {
-                //Manual mapper
-                //var employee = new Employee()
-                //{
-                //    Name=model.Name,
-                //    Age=model.Age,
-                //    Salary=model.Salary,
-                //    Address=model.Address,
-                //    IsActive=model.IsActive,
-                //    IsDeleted=model.IsDeleted,
-                //    CreateAt=model.CreateAt,
-                //    Email=model.Email,
-                //    HiringDate=model.HiringDate,
-                //    Phone=model.Phone,
+
+                if (model.Image is not null)
+                {
+                    model.ImageName = DocumentSetting.UploadFile(model.Image, "images");
+
+                }
 
 
-
-
-                //};
-                var employee= _mapper.Map<Employee>(model);
-                var count = _employeeRepository.Add(employee);
+                var employee = _mapper.Map<Employee>(model);
+                _unitOfWork.EmployeeRepository.Add(employee);
+              var count=   _unitOfWork.Complete();
                 if (count > 0)
                 {
+                 
+
 
                     TempData  ["Message"] = "Employee created ";
                     return RedirectToAction(nameof(Index));
@@ -121,7 +110,7 @@ namespace MVC._3.PL.Controllers
         public IActionResult Details(int? id, string viewName = "Details") 
         {
             if (id is null) return BadRequest("Invaild Id");
-            var employee = _employeeRepository.Get(id.Value);
+            var employee = _unitOfWork.EmployeeRepository.Get(id.Value);
             if (employee is null) return NotFound(new { StatusCode = 404, Message = $"employee  with id {id} is Not Found !" });
             return View(viewName, employee);
 
@@ -136,28 +125,38 @@ namespace MVC._3.PL.Controllers
             return Details(id, "Edit");
 
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Employee model)
+        public IActionResult Edit([FromRoute] int id, Employee model, IFormFile? image)
         {
-            if (ModelState.IsValid) 
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var employeeInDb = _unitOfWork.EmployeeRepository.Get(id);
+            if (employeeInDb is null) return NotFound();
+            if (id != model.Id) return BadRequest();
+
+            // Handle image
+            if (image is not null)
             {
-
-
-                if (id != model.Id) return BadRequest();
-                var count = _employeeRepository.Update(model);
-                if (count > 0) 
+                if (!string.IsNullOrEmpty(employeeInDb.ImageName))
                 {
-
-                    return RedirectToAction(nameof(Index));
-                
+                    DocumentSetting.DeleteFile("images", employeeInDb.ImageName);
                 }
-            
-            }
-            return View(model);
 
+                employeeInDb.ImageName = DocumentSetting.UploadFile(image, "images");
+            }
+
+            // Map other fields
+            _mapper.Map(model, employeeInDb);
+
+            var count = _unitOfWork.Complete();
+            if (count > 0)
+                return RedirectToAction(nameof(Index));
+
+            return View(model);
         }
+
 
 
 
@@ -167,7 +166,7 @@ namespace MVC._3.PL.Controllers
 
 
 
-        
+
         public IActionResult Delete(int? id)
         {
            
@@ -187,7 +186,8 @@ namespace MVC._3.PL.Controllers
 
 
                 if (id != model.Id) return BadRequest();
-                var count = _employeeRepository.Delete(model);
+                 _unitOfWork.EmployeeRepository.Delete(model);
+                var count = _unitOfWork.Complete();
                 if (count > 0)
                 {
 
@@ -206,6 +206,8 @@ namespace MVC._3.PL.Controllers
 
 
         //min16:10
+
+        ////vid 5-min 1
 
 
 

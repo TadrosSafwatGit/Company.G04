@@ -40,6 +40,7 @@
             <table class="table table-hover table-bordered text-center align-middle">
                 <thead class="table-dark">
                     <tr>
+                        <th>📛 Image</th>
                         <th>📛 Name</th>
                         <th>🎂 Age</th>
                         <th>📧 Email</th>
@@ -59,6 +60,16 @@
                     @foreach (var employee in Model)
                     {
                         <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(employee.ImageName))
+                                {
+                                    <img src="~/files/images/@employee.ImageName" class="img-thumbnail" width="70" height="70" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No Image</span>
+                                }
+                            </td>
                             <td><strong>@employee.Name</strong></td>
                             <td>@employee.Age</td>
                             <td>@employee.Email</td>

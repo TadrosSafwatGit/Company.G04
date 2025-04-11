@@ -10,16 +10,18 @@ namespace MVC._3.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepositories _departmentRepository;
-        public DepartmentController(IDepartmentRepositories departmentRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        //private readonly IDepartmentRepositories _departmentRepository;
+        public DepartmentController(IUnitOfWork unitOfWork)
         {
-            _departmentRepository = departmentRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]// GET:/Departmnet/index
         public IActionResult Index()
         {
-            var department = _departmentRepository.GetAll();
+            var department = _unitOfWork.DepartmentRepository.GetAll();
 
 
 
@@ -51,7 +53,8 @@ namespace MVC._3.PL.Controllers
                     Name = model.Name,
                     CreateAt = model.CreateAt
                 };
-                var count = _departmentRepository.Add(department);
+                 _unitOfWork.DepartmentRepository.Add(department);
+                var count = _unitOfWork.Complete();
                 if (count > 0)
                 {
                     return RedirectToAction(nameof(Index));
@@ -69,7 +72,7 @@ namespace MVC._3.PL.Controllers
         public IActionResult Details(int? id,string viewName="Details") // refactor
         {
             if (id is null) return BadRequest("Invaild Id");
-            var department = _departmentRepository.Get(id.Value);
+            var department = _unitOfWork.DepartmentRepository.Get(id.Value);
             if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department  with id {id} is Not Found !" });
             return View(viewName,department);
 
@@ -122,7 +125,8 @@ namespace MVC._3.PL.Controllers
                     CreateAt = model.CreateAt
 
                 };
-                var count = _departmentRepository.Update(department);
+                _unitOfWork.DepartmentRepository.Update(department);
+                var count = _unitOfWork.Complete();
 
                 if (count > 0)
                 {
@@ -170,7 +174,8 @@ namespace MVC._3.PL.Controllers
                     CreateAt = model.CreateAt
 
                 };
-                var count = _departmentRepository.Delete(department);
+                _unitOfWork.DepartmentRepository.Delete(department);
+                var count = _unitOfWork.Complete();
 
                 if (count > 0)
                 {
