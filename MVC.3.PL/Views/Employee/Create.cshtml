@@ -16,7 +16,8 @@
 
     <div class="card shadow rounded-4 border-0">
         <div class="card-body p-4">
-            <form asp-action="Create" class="row g-4">
+            <form asp-action="Create" class="row g-4" enctype="multipart/form-data">
+
                 <!-- Left Column -->
                 <div class="col-md-6">
                     <div>
@@ -69,6 +70,27 @@
                         <input asp-for="CreateAt" type="date" class="form-control" />
                         <span asp-validation-for="CreateAt" class="text-danger small"></span>
                     </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label asp-for="Image" class="form-label fw-semibold">🖼️ Upload Your Photo</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <input asp-for="Image" type="file" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Image" class="text-danger small"></span>
+                    </div>
+
+
+                   @*file*@
+
+
+
+
 
                     <div>
                         <label asp-for="DepartmentId" class="form-label fw-semibold">🏢 Department</label>

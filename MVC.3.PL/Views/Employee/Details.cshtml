@@ -11,6 +11,15 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="p-4 border rounded bg-light shadow">
+
+                @* 🖼️ Employee Image *@
+                @if (!string.IsNullOrEmpty(Model.ImageName))
+                {
+                    <div class="text-center mb-4">
+                        <img src="~/files/images/@Model.ImageName" class="img-fluid rounded-circle shadow" alt="Employee Image" style="width: 150px; height: 150px; object-fit: cover;" />
+                    </div>
+                }
+
                 <div class="mb-3">
                     <label class="form-label fw-bold">📛 Name</label>
                     <input readonly asp-for="Name" class="form-control bg-white" />

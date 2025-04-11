@@ -5,6 +5,9 @@ namespace MVC._3.PL.Dtos
 {
     public class CreateEmployeeDto
     {
+
+        //public int Id { get; set; }
+
         [Required(ErrorMessage = "Name is  Required")]
         public string Name { get; set; }
 
@@ -37,6 +40,11 @@ namespace MVC._3.PL.Dtos
         public DateTime CreateAt { get; set; }
 
         public int? DepartmentId { get; set; }
+
+        public string? ImageName { get; set; }
+
+        public IFormFile? Image { get; set; }
+
 
     }
 }

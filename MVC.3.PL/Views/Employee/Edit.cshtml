@@ -12,9 +12,26 @@
 
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="p-4 border rounded bg-light shadow">
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data" class="p-4 border rounded bg-light shadow">
 
                 <input type="hidden" asp-for="Id" />
+                <input type="hidden" name="ImageName" value="@Model.ImageName" />
+
+                <div class="text-center mb-3">
+                    @if (!string.IsNullOrEmpty(Model.ImageName))
+                    {
+                        <img src="~/images/@Model.ImageName" class="img-thumbnail rounded-circle" style="width: 150px; height: 150px;" />
+                    }
+                    else
+                    {
+                        <p class="text-muted">No photo available</p>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Change Photo</label>
+                    <input type="file" name="Image" class="form-control" />
+                </div>
 
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label fw-bold"></label>
