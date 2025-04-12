@@ -119,46 +119,96 @@ namespace MVC._3.PL.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
+        //[HttpGet]
+        //public IActionResult Edit(int? id)
+        //{
        
 
-            return Details(id, "Edit");
+        //    return Details(id, "Edit");
 
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Employee model, IFormFile? image)
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Edit([FromRoute] int id, Employee model, IFormFile? image)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(model);
+
+        //    var employeeInDb = _unitOfWork.EmployeeRepository.Get(id);
+        //    if (employeeInDb is null) return NotFound();
+        //    if (id != model.Id) return BadRequest();
+
+        //    // Handle image
+        //    if (image is not null)
+        //    {
+        //        if (!string.IsNullOrEmpty(employeeInDb.ImageName))
+        //        {
+        //            DocumentSetting.DeleteFile("images", employeeInDb.ImageName);
+        //        }
+
+        //        employeeInDb.ImageName = DocumentSetting.UploadFile(image, "images");
+        //    }
+
+        //    // Map other fields
+        //    _mapper.Map(model, employeeInDb);
+
+        //    var count = _unitOfWork.Complete();
+        //    if (count > 0)
+        //        return RedirectToAction(nameof(Index));
+
+        //    return View(model);
+        //}
+        [HttpGet]
+public IActionResult Edit(int? id)
+{
+    return Details(id, "Edit"); // assuming Details populates a viewmodel
+}
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Edit([FromRoute] int id, Employee model, IFormFile? image)
+{
+    if (!ModelState.IsValid)
+        return View(model);
+
+    var employeeInDb = _unitOfWork.EmployeeRepository.Get(id);
+    if (employeeInDb is null)
+        return NotFound();
+
+    if (id != model.Id)
+        return BadRequest();
+
+    // Map fields manually or use AutoMapper carefully
+    employeeInDb.Name = model.Name;
+    employeeInDb.Age = model.Age;
+    employeeInDb.Email = model.Email;
+    employeeInDb.Address = model.Address;
+    employeeInDb.Phone = model.Phone;
+    employeeInDb.Salary = model.Salary;
+    employeeInDb.HiringDate = model.HiringDate;
+    employeeInDb.CreateAt = model.CreateAt;
+    employeeInDb.IsActive = model.IsActive;
+    employeeInDb.IsDeleted = model.IsDeleted;
+    employeeInDb.DepartmentId = model.DepartmentId;
+
+    if (image is not null)
+    {
+        if (!string.IsNullOrEmpty(employeeInDb.ImageName))
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var employeeInDb = _unitOfWork.EmployeeRepository.Get(id);
-            if (employeeInDb is null) return NotFound();
-            if (id != model.Id) return BadRequest();
-
-            // Handle image
-            if (image is not null)
-            {
-                if (!string.IsNullOrEmpty(employeeInDb.ImageName))
-                {
-                    DocumentSetting.DeleteFile("images", employeeInDb.ImageName);
-                }
-
-                employeeInDb.ImageName = DocumentSetting.UploadFile(image, "images");
-            }
-
-            // Map other fields
-            _mapper.Map(model, employeeInDb);
-
-            var count = _unitOfWork.Complete();
-            if (count > 0)
-                return RedirectToAction(nameof(Index));
-
-            return View(model);
+            DocumentSetting.DeleteFile("images", employeeInDb.ImageName);
         }
 
+        employeeInDb.ImageName = DocumentSetting.UploadFile(image, "images");
+    }
+
+    var count = _unitOfWork.Complete();
+
+    if (count > 0)
+        return RedirectToAction(nameof(Index));
+
+    ModelState.AddModelError("", "Something went wrong while updating.");
+    return View(model);
+}
 
 
 
