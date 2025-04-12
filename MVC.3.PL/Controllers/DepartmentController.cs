@@ -2,12 +2,14 @@
 using Company.G04.BLL.Interfaces;
 using Company.G04.BLL.Repositories;
 using Company.G04.DAl.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using MVC._3.PL.Dtos;
 
 namespace MVC._3.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
