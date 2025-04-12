@@ -36,8 +36,17 @@ namespace MVC._3.PL
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
-        
 
+            builder.Services.ConfigureApplicationCookie(config =>
+            {
+
+                config.LoginPath = "/Account/SignIn";
+
+            }
+            );
+
+
+            ///KeroKaro_24911514
 
             var app = builder.Build();
 
@@ -53,6 +62,10 @@ namespace MVC._3.PL
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
 
             app.MapControllerRoute(

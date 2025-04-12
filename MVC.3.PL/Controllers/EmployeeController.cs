@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Company.G04.BLL.Interfaces;
 using Company.G04.DAl.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC._3.PL.Dtos;
 using MVC._3.PL.Helpers;
 
 namespace MVC._3.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         //private readonly IEmployeeRepositories _employeeRepository;
