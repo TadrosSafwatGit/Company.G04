@@ -8,7 +8,7 @@ using MVC._3.PL.Helpers;
 
 namespace MVC._3.PL.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class EmployeeController : Controller
     {
         //private readonly IEmployeeRepositories _employeeRepository;
