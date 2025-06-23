@@ -9,7 +9,7 @@ using MVC._3.PL.Dtos;
 
 namespace MVC._3.PL.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class DepartmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -19,7 +19,7 @@ namespace MVC._3.PL
             builder.Services.AddControllersWithViews();// regeseter bulit in   MVC Service 
             builder.Services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();// allow dependances ingections for DepartmentReposatres
             builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
-            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CompanyDbContext>();
+            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CompanyDbContext>().AddDefaultTokenProviders();
 
             ////// unit OF work
 
